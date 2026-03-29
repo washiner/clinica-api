@@ -39,12 +39,24 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
+## Endpoints
+
+### Especialidades
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | /v1/especialidades | Cadastra uma especialidade |
+| GET | /v1/especialidades | Lista todas as especialidades |
+| GET | /v1/especialidades/{id} | Busca especialidade por id |
+
+---
+
 ## Status do projeto
 
-Em desenvolvimento.
+Em desenvolvimento — novos endpoints sendo adicionados.
 
 ---
 
 ## Autor
 
-Washiner
+Washiner Takeuchi
