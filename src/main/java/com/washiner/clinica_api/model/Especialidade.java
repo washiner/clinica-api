@@ -7,7 +7,7 @@ import lombok.*;
 @Entity                              // diz pro JPA que essa classe é uma tabela no banco
 @Getter                              // Lombok gera todos os getters automaticamente
 @Setter                              // Lombok gera todos os setters automaticamente
-@ToString                            // Lombok gera o toString() — útil pra debug no log
+@ToString(exclude = {})              // Lombok gera o toString() — útil pra debug no log, @ToString(exclude = {}) // colocar assim para noa dar loop infinito ou deixa sem.
 @NoArgsConstructor                   // Lombok gera construtor vazio — obrigatório pro JPA
 @AllArgsConstructor                  // Lombok gera construtor com todos os campos — usado pelo @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) // Lombok gera equals e hashCode

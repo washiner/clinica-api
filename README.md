@@ -51,6 +51,14 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
+### Médicos
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | /v1/medicos | Cadastra um médico |
+| GET | /v1/medicos | Lista todos os médicos |
+| GET | /v1/medicos/{id} | Busca médico por id |
+
 ## Status do projeto
 
 Em desenvolvimento — novos endpoints sendo adicionados.
