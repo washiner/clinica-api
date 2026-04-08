@@ -59,6 +59,14 @@ http://localhost:8080/swagger-ui/index.html
 | GET | /v1/medicos | Lista todos os médicos |
 | GET | /v1/medicos/{id} | Busca médico por id |
 
+### Consultorios
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | /v1/consultorios | Cadastra um consultório |
+| GET | /v1/consultorios | Lista todos os consultorios |
+| GET | /v1/consultorios/{id} | Busca consultório por id |
+
 ## Status do projeto
 
 Em desenvolvimento — novos endpoints sendo adicionados.
