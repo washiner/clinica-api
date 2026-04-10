@@ -75,6 +75,14 @@ http://localhost:8080/swagger-ui/index.html
 | GET | /v1/pacientes | Lista todos os pacientes |
 | GET | /v1/pacientes/{id} | Busca paciente por id |
 
+### Consultas
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | /v1/consultas | Agenda uma consulta |
+| GET | /v1/consultas | Lista todas as consultas |
+| GET | /v1/consultas/{id} | Busca consulta por id |
+
 ## Status do projeto
 
 Em desenvolvimento — novos endpoints sendo adicionados.
