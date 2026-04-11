@@ -7,6 +7,8 @@ import com.washiner.clinica_api.model.Medico;
 import com.washiner.clinica_api.repository.EspecialidadeRepository;
 import com.washiner.clinica_api.repository.MedicoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,10 +53,20 @@ public class MedicoService {
         return MedicoResponse.from(medico);
     }
 
-    public List<MedicoResponse> listar() {
-        return medicoRepository.findAll()
-                .stream()
-                .map(MedicoResponse::from)
-                .toList();
+    //sem a paginaçao
+//    public List<MedicoResponse> listar() {
+//        return medicoRepository.findAll()
+//                .stream()
+//                .map(MedicoResponse::from)
+//                .toList();
+//    }
+
+    // agora fica assim
+    public Page<MedicoResponse> listar(Pageable pageable) {
+        // busca uma página de médicos no banco
+        // o Pageable diz qual página e quantos por página
+        return medicoRepository.findAll(pageable)
+                // .map() funciona direto no Page — não precisa de stream
+                .map(MedicoResponse::from);
     }
 }
