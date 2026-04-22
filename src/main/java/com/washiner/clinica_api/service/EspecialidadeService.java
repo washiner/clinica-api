@@ -7,6 +7,7 @@ import com.washiner.clinica_api.model.Especialidade;
 import com.washiner.clinica_api.repository.EspecialidadeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,19 +17,18 @@ public class EspecialidadeService {
 
     private final EspecialidadeRepository especialidadeRepository;
 
-    // cria uma nova especialidade
+    @Transactional  // escreve no banco → precisa de transação
     public EspecialidadeResponse criar(EspecialidadeRequest request) {
         var especialidade = new Especialidade();
         especialidade.setNome(request.nome());
         especialidade.setTipo(request.tipo());
-        especialidade.setAtiva(true); // sempre começa ativa
-
+        especialidade.setAtiva(true);
         return EspecialidadeResponse.from(
                 especialidadeRepository.save(especialidade)
         );
     }
 
-    // busca especialidade pelo id
+    @Transactional(readOnly = true)  // só lê → otimização
     public EspecialidadeResponse buscarPorId(Long id) {
         var especialidade = especialidadeRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
@@ -37,7 +37,7 @@ public class EspecialidadeService {
         return EspecialidadeResponse.from(especialidade);
     }
 
-    // lista todas as especialidades
+    @Transactional(readOnly = true)  // só lê → otimização
     public List<EspecialidadeResponse> listar() {
         return especialidadeRepository.findAll()
                 .stream()

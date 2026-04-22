@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ConsultaService {
     private final MedicoRepository medicoRepository;
     private final PacienteRepository pacienteRepository;
 
+    @Transactional
     public ConsultaResponse criar(ConsultaRequest request) {
 
         // busca o médico pelo id informado
@@ -51,6 +53,7 @@ public class ConsultaService {
         );
     }
 
+    @Transactional(readOnly = true)
     public ConsultaResponse buscarPorId(Long id) {
         var consulta = consultaRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
@@ -60,6 +63,7 @@ public class ConsultaService {
     }
 
     // agora com paginação
+    @Transactional(readOnly = true)
     public Page<ConsultaResponse> listar(Pageable pageable) {
         // busca uma página de consultas no banco
         return consultaRepository.findAll(pageable)

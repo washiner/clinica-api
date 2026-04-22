@@ -8,6 +8,7 @@ import com.washiner.clinica_api.repository.ConsultorioRepository;
 import com.washiner.clinica_api.repository.MedicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ConsultorioService {
     private final ConsultorioRepository consultorioRepository;
     private final MedicoRepository medicoRepository;
 
+    @Transactional
     public ConsultorioResponse criar(ConsultorioRequest request) {
 
         // busca o médico pelo id informado
@@ -38,6 +40,7 @@ public class ConsultorioService {
         );
     }
 
+    @Transactional(readOnly = true)
     public ConsultorioResponse buscarPorId(Long id) {
         var consultorio = consultorioRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
@@ -46,6 +49,7 @@ public class ConsultorioService {
         return ConsultorioResponse.from(consultorio);
     }
 
+    @Transactional(readOnly = true)
     public List<ConsultorioResponse> listar() {
         return consultorioRepository.findAll()
                 .stream()

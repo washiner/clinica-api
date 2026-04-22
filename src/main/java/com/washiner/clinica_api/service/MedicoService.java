@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MedicoService {
     private final MedicoRepository medicoRepository;
     private final EspecialidadeRepository especialidadeRepository;
 
+    @Transactional
     public MedicoResponse criar(MedicoRequest request) {
 
         // busca todas as especialidades pelos ids informados
@@ -45,6 +47,7 @@ public class MedicoService {
         return MedicoResponse.from(medicoRepository.save(medico));
     }
 
+    @Transactional(readOnly = true)
     public MedicoResponse buscarPorId(Long id) {
         var medico = medicoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
@@ -62,6 +65,7 @@ public class MedicoService {
 //    }
 
     // agora fica assim
+    @Transactional(readOnly = true)
     public Page<MedicoResponse> listar(Pageable pageable) {
         // busca uma página de médicos no banco
         // o Pageable diz qual página e quantos por página

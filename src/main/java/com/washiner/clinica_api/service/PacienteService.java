@@ -7,6 +7,7 @@ import com.washiner.clinica_api.model.Paciente;
 import com.washiner.clinica_api.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
 
+    @Transactional
     public PacienteResponse criar(PacienteRequest request) {
 
         // monta o paciente com os dados do request
@@ -33,6 +35,7 @@ public class PacienteService {
         );
     }
 
+    @Transactional(readOnly = true)
     public PacienteResponse buscarPorId(Long id) {
         var paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
@@ -41,6 +44,7 @@ public class PacienteService {
         return PacienteResponse.from(paciente);
     }
 
+    @Transactional(readOnly = true)
     public List<PacienteResponse> listar() {
         return pacienteRepository.findAll()
                 .stream()
