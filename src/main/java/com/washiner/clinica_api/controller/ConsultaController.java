@@ -5,6 +5,9 @@ import com.washiner.clinica_api.dto.ConsultaResponse;
 import com.washiner.clinica_api.service.ConsultaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +38,10 @@ public class ConsultaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ConsultaResponse>> listar() {
-        return ResponseEntity.ok(
-                consultaService.listar()
-        );
+    public ResponseEntity<Page<ConsultaResponse>> listar(
+            // padrão — página 0, 10 por página, ordenado por dataHora
+            @PageableDefault(page = 0, size = 10, sort = "dataHora")
+            Pageable pageable) {
+        return ResponseEntity.ok(consultaService.listar(pageable));
     }
 }

@@ -9,6 +9,8 @@ import com.washiner.clinica_api.repository.ConsultaRepository;
 import com.washiner.clinica_api.repository.MedicoRepository;
 import com.washiner.clinica_api.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,10 +59,11 @@ public class ConsultaService {
         return ConsultaResponse.from(consulta);
     }
 
-    public List<ConsultaResponse> listar() {
-        return consultaRepository.findAll()
-                .stream()
-                .map(ConsultaResponse::from)
-                .toList();
+    // agora com paginação
+    public Page<ConsultaResponse> listar(Pageable pageable) {
+        // busca uma página de consultas no banco
+        return consultaRepository.findAll(pageable)
+                // .map() funciona direto no Page
+                .map(ConsultaResponse::from);
     }
 }
